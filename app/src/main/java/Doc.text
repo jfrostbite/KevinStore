@@ -1,0 +1,51 @@
+该电子市场项目：
+注重于先搭建整体框架，在进行细节处理
+
+1、获取整个项目需要的全局变量（context,Handler消息机制,主线程ID）
+    因为是全局变量所以需要在程序再开始时获取，所以创建Application子类，在其中进行初始化
+2、创建一个UI界面操作的工具类，因为整个项目需要大量的操作UI界面的方法，所以将其封装在工具类中（UiUtils）
+    获取3个全局变量；获取资源文件中的字符串、字符串数组、颜色ID、Drawable、dip和px的转换、获取资源文件中的dimens
+    当前线程是否运行在主线程、运行在主线程的方法、获取颜色状态选择器、填充布局的方法抽取
+3、给activity_main搭建布局界面：用到轻量级第三方组件（PagerTab）涉及ActionBar（V7），ActionBar需要修改主题appcustom
+4、创建Fragment 子类，用于给ViewPager加载页面
+5、创建自定义帧布局（LoadingPage），用于填充Fragment。该LoadingPage中有多种界面状态。
+6、展示成功页面
+7、创建获取页面状态操作，根据页面状态显示不同的页面。
+8、加载失败，重试 的点击操作。
+9、每个页签加载从成功，需要展示的页面搭建。
+10、adapter的抽取，getView的抽取:
+    将adapter中公用数据抽取到类中。在子类中添加变量。
+    adapter 抽取到 MyBaseAdapter，在MyBaseAdapter 中getView进行进一步抽取 到BaseHolder
+    BaseHolder初始化完成加载布局，初始化控件，添加tag   自定义刷新数据方法。
+    BaseHolder中不确定元素：布局文件，添加数据类型，刷新方法。子类实现。
+    使用方法：创建BaseAdapter子类，其中getView的操作抽取到BaseHolder，创建BaseHolder子类，如HomeHolder
+    HomeHolder给到MyBaseAdapter中，因为HomeHolder不确定，所以在MyBaseAdapter中提供获取Holder的方法。
+    Holder在不同界面中的操作不一定，故抽取。
+
+    Adapter的抽取：主要是操作Holder的方法抽取
+                  1、在getView中创建Holder，该Holder不同，需要子类Adapter指定所需Holder，getHolder抽取
+                  2、在构造函数中进行数据的传递
+    geiView的抽取：将变量抽取到BaseHolder中，BaseHolder中封装填充布局，初始化控件，存储Holder的操作。
+                  1、BaseHolder中填充布局的操作不确定，需要子类实现（initView();）子类实现该方法顺便进行
+                    控件初始化。
+                  2、BaseHolder中给控件设置数据的操作不一定，需要子类实现（initDate();）:tv.setText();
+                  3、BaseHolder中给给控件设置的数据类型不确定，利用泛型。
+
+    adapter抽取的数据的传递：HomeAdapter(ArrayList<data>) 到 MyBaseAdapter 到getView 利用position
+                          获取集合中具体给项目填充的数据同过Holder中的setData 到 BaseHolder  子类HomeHolder
+                          直接调用。
+
+MyBaseAdapter　中就是geiView中的操作
+
+11、上拉加载的操作。利用项目类型不同，多加一个项目的原理进行
+12、每个页面访问网络请求的操作
+    抽取到父类，子类就是每个页面访问网络的具体实现。
+13、实现每个界面布局，数据操作，基本在holder中进行除了排行中的自定义FlowLayout
+14、完善首页的轮播图(消息机制，自定义控件，自定义控件属性设置（父类参数设置）)
+15、详情页的完善，多个板块的分割，Holder的使用，Holder就是一个带View的初始化和控件参数设置的操作。
+16、下载的完成，线程池，观察者设计模式。
+17、线程池相关：new ThreadPoolExecutor()；Executors.defaultThreadFactory()
+18、下载的实现：观察者设计模式，思路：定义监听下载状态和进度的接口（观察者）。
+              就是下载状态实时改变，这时候实时调用方法，可以给调用下载共能的调用者提供下载状态的信息
+              下载状态的改变需要执行的方法由你调用者类实现。
+    将下载状态，下载进度，下载文件保存的位置都封装在下载信息中

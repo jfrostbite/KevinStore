@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:kevin="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/list_item_backgroud"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+        <appstore.keivn.jf.kevinstore.ui.widget.RatioLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            kevin:child_ratio="2.43"
+            >
+            <ImageView
+                android:id="@+id/iv_subject_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"/>
+        </appstore.keivn.jf.kevinstore.ui.widget.RatioLayout>
+
+        <TextView
+            android:id="@+id/tv_subject_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_margin="10dp"
+            />
+    </LinearLayout>
+</LinearLayout>

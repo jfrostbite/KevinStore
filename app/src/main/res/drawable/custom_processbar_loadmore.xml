@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--layer一层一层叠加效果-->
+    <item>
+        <rotate
+            android:drawable="@mipmap/spinner_small_inner"
+            android:fromDegrees="0"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="360"
+            android:visible="true"></rotate>
+    </item>
+    <item>
+        <rotate
+            android:drawable="@mipmap/spinner_small_outer"
+            android:fromDegrees="720"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="0"
+            android:visible="true"></rotate>
+    </item>
+</layer-list>
